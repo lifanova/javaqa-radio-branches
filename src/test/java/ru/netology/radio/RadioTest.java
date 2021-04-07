@@ -4,10 +4,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RadioTest {
-
     /* Station Number Tests */
     @Test
-    void setStationNumberInRangeTest(){
+    void setMaxStationNumberTest() {
+        Radio radio = new Radio(8);
+        assertEquals(8, radio.getMaxStationNumber());
+    }
+
+    @Test
+    void setStationNumberTest(){
         Radio radio = new Radio();
         // Проверяем любой положительный сценарий: номер в диапазоне [0; 9]
         int number = 5;
@@ -17,8 +22,19 @@ public class RadioTest {
     }
 
     @Test
+    void setStationNumberAndMaxTest(){
+        Radio radio = new Radio(9);
+        // Проверяем любой положительный сценарий: номер в диапазоне [0; 9]
+        int number = 5;
+        radio.setStationNumber(number);
+
+        assertEquals(number, radio.getStationNumber());
+    }
+
+
+    @Test
     void setStationNumberLessMinTest(){
-        Radio radio = new Radio();
+        Radio radio = new Radio(9);
         // Проверяем, если номер радиостанции < MIN
         int number = -1;
         // Ожидаемый результат
@@ -31,7 +47,7 @@ public class RadioTest {
 
     @Test
     void setStationNumberMoreMaxTest(){
-        Radio radio = new Radio();
+        Radio radio = new Radio(9);
         // Проверяем, если номер радиостанции > MAX
         int number = 10;
         // Ожидаемый результат
@@ -44,7 +60,7 @@ public class RadioTest {
 
     @Test
     public void increaseStationNumberTest() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(9);
         // Проверяем переключение радиостанций (next)
         int number = 3;
         // Ожидаемый результат
@@ -57,7 +73,7 @@ public class RadioTest {
 
     @Test
     void decreaseStationNumberTest() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(9);
         // Проверяем переключение радиостанций (prev)
         int number = 3;
         // Ожидаемый результат
@@ -70,7 +86,7 @@ public class RadioTest {
 
     @Test
     public void increaseStationNumberFromMaxTest() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(9);
         // Проверяем переключение радиостанций с максимальной
         int number = 9;
         // Ожидаемый результат
@@ -83,7 +99,7 @@ public class RadioTest {
 
     @Test
     public void decreaseStationNumberFromMinTest() {
-        Radio radio = new Radio();
+        Radio radio = new Radio(9);
         // Проверяем переключение радиостанций с минимальной
         int number = 0;
         // Ожидаемый результат
@@ -123,9 +139,9 @@ public class RadioTest {
     void setVolumeMoreMaxTest(){
         Radio radio = new Radio();
         // Проверяем, если громкость > MAX
-        int volume = 11;
+        int volume = 101;
         // Ожидаемый результат
-        int expected = 10;
+        int expected = 100;
 
         radio.setVolume(volume);
 
@@ -162,9 +178,9 @@ public class RadioTest {
     public void increaseVolumeFromMaxTest() {
         Radio radio = new Radio();
         // Проверяем увеличение громкости с максимальной (громкость не изменится)
-        int volume = 10;
+        int volume = 100;
         // Ожидаемый результат
-        int expected = 10;
+        int expected = 100;
 
         radio.setVolume(volume);
         radio.increaseVolume();
