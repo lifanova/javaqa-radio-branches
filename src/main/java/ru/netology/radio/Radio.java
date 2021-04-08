@@ -1,37 +1,49 @@
 package ru.netology.radio;
 
+
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
+@EqualsAndHashCode
 public class Radio {
     private static final int MIN_STATION_NUMBER = 0;
     private static final int MAX_STATION_NUMBER = 9;
     private static final int MIN_VOLUME = 0;
-    private static final int MAX_VOLUME = 10;
+    private static final int MAX_VOLUME = 100;
+
+    private int maxStationNumber = MAX_STATION_NUMBER;
 
     // Номер текущей (прослушиваемой) радиостанции
     private int stationNumber;
     // Громкость звука
     private int volume;
 
-    public int getStationNumber() {
-        return stationNumber;
+
+
+    public Radio(int maxStationNumber) {
+        this.maxStationNumber = maxStationNumber;
     }
 
+
+
     public void setStationNumber(int stationNumber) {
-        if (stationNumber > MAX_STATION_NUMBER) {
+        if (stationNumber > maxStationNumber) {
             this.stationNumber = MIN_STATION_NUMBER;
             return;
         }
 
         if (stationNumber < MIN_STATION_NUMBER) {
-            this.stationNumber = MAX_STATION_NUMBER;
+            this.stationNumber = maxStationNumber;
             return;
         }
 
         this.stationNumber = stationNumber;
     }
 
-    public int getVolume() {
-        return volume;
-    }
+
 
     public void setVolume(int volume) {
         if (volume > MAX_VOLUME) {
@@ -49,9 +61,9 @@ public class Radio {
 
     /**
      * Увеличить номер радиостанции (клиент нажал на кнопку next)
-     * */
-    public void increaseStationNumber(){
-        if(stationNumber == MAX_STATION_NUMBER) {
+     */
+    public void increaseStationNumber() {
+        if (stationNumber == maxStationNumber) {
             stationNumber = MIN_STATION_NUMBER;
             return;
         }
@@ -61,10 +73,10 @@ public class Radio {
 
     /**
      * Уменьшить номер радиостанции (клиент нажал на кнопку prev)
-     * */
-    public void decreaseStationNumber(){
-        if(stationNumber == MIN_STATION_NUMBER) {
-            stationNumber = MAX_STATION_NUMBER;
+     */
+    public void decreaseStationNumber() {
+        if (stationNumber == MIN_STATION_NUMBER) {
+            stationNumber = maxStationNumber;
             return;
         }
 
@@ -73,9 +85,9 @@ public class Radio {
 
     /**
      * Увеличить громкость
-     * */
-    public void increaseVolume(){
-        if(volume == MAX_VOLUME) {
+     */
+    public void increaseVolume() {
+        if (volume == MAX_VOLUME) {
             return;
         }
 
@@ -84,12 +96,13 @@ public class Radio {
 
     /**
      * Уменьшить громкость
-     * */
-    public void decreaseVolume(){
-        if(volume == MIN_VOLUME) {
+     */
+    public void decreaseVolume() {
+        if (volume == MIN_VOLUME) {
             return;
         }
 
         volume--;
     }
+
 }
